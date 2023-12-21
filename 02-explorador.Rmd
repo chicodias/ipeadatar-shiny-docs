@@ -1,12 +1,10 @@
 # Explorador
 
-## Objetivo
 
 A aba Explorador é projetada para oferecer aos usuários um panorama completo das séries temporais disponíveis no pacote IpeaDataR. O principal objetivo é facilitar a visualização e seleção das séries que os usuários desejam analisar. Através de uma interface intuitiva, é possível aplicar filtros e buscar séries específicas com base em diversos critérios.
 
-![Explorador](img/01-explorador.jpeg)
-
-
+![Explorador](img/01-explorador.png)
+    
 ## Funcionalidades
 
 ### Total de Séries Disponíveis

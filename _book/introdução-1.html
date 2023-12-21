@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 Introdução | Análise e Previsão de Séries Temporais com Dados do IPEA</title>
+  <meta name="description" content="Este documento serve como um guia completo para a aplicação web desenvolvida para a exploração interativa, modelagem e previsão de séries temporais utilizando dados do Instituto de Pesquisa Econômica Aplicada (IPEA). Destinado a analistas, pesquisadores e entusiastas de dados, este material detalha as funcionalidades da aplicação, metodologias de modelagem e práticas recomendadas para diagnóstico e previsão de séries temporais." />
+  <meta name="generator" content="bookdown 0.37 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 Introdução | Análise e Previsão de Séries Temporais com Dados do IPEA" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Este documento serve como um guia completo para a aplicação web desenvolvida para a exploração interativa, modelagem e previsão de séries temporais utilizando dados do Instituto de Pesquisa Econômica Aplicada (IPEA). Destinado a analistas, pesquisadores e entusiastas de dados, este material detalha as funcionalidades da aplicação, metodologias de modelagem e práticas recomendadas para diagnóstico e previsão de séries temporais." />
+  <meta name="github-repo" content="chicodias/ipeadatar-shiny" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 Introdução | Análise e Previsão de Séries Temporais com Dados do IPEA" />
+  
+  <meta name="twitter:description" content="Este documento serve como um guia completo para a aplicação web desenvolvida para a exploração interativa, modelagem e previsão de séries temporais utilizando dados do Instituto de Pesquisa Econômica Aplicada (IPEA). Destinado a analistas, pesquisadores e entusiastas de dados, este material detalha as funcionalidades da aplicação, metodologias de modelagem e práticas recomendadas para diagnóstico e previsão de séries temporais." />
+  
+
+<meta name="author" content="Francisco Miranda" />
+
+
+<meta name="date" content="2023-12-21" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="explorador-1.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Dashboard do ipeadatar</a>
+<ul>
+<li class="chapter" data-level="1.0.1" data-path="index.html"><a href="index.html#introdução"><i class="fa fa-check"></i><b>1.0.1</b> Introdução</a></li>
+<li class="chapter" data-level="1.0.2" data-path="index.html"><a href="index.html#explorador"><i class="fa fa-check"></i><b>1.0.2</b> Explorador</a></li>
+<li class="chapter" data-level="1.0.3" data-path="index.html"><a href="index.html#modelagem"><i class="fa fa-check"></i><b>1.0.3</b> Modelagem</a></li>
+<li class="chapter" data-level="1.0.4" data-path="index.html"><a href="index.html#diagnóstico"><i class="fa fa-check"></i><b>1.0.4</b> Diagnóstico</a></li>
+<li class="chapter" data-level="1.0.5" data-path="index.html"><a href="index.html#previsão"><i class="fa fa-check"></i><b>1.0.5</b> Previsão</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="introdução-1.html"><a href="introdução-1.html"><i class="fa fa-check"></i><b>2</b> Introdução</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="introdução-1.html"><a href="introdução-1.html#sobre-o-projeto"><i class="fa fa-check"></i><b>2.1</b> Sobre o Projeto</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="introdução-1.html"><a href="introdução-1.html#estrutura-da-documentação"><i class="fa fa-check"></i><b>2.1.1</b> Estrutura da documentação</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="introdução-1.html"><a href="introdução-1.html#contribuições"><i class="fa fa-check"></i><b>2.2</b> Contribuições</a></li>
+<li class="chapter" data-level="2.3" data-path="introdução-1.html"><a href="introdução-1.html#licença"><i class="fa fa-check"></i><b>2.3</b> Licença</a></li>
+<li class="chapter" data-level="2.4" data-path="introdução-1.html"><a href="introdução-1.html#contato"><i class="fa fa-check"></i><b>2.4</b> Contato</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="explorador-1.html"><a href="explorador-1.html"><i class="fa fa-check"></i><b>3</b> Explorador</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="explorador-1.html"><a href="explorador-1.html#funcionalidades"><i class="fa fa-check"></i><b>3.1</b> Funcionalidades</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="explorador-1.html"><a href="explorador-1.html#total-de-séries-disponíveis"><i class="fa fa-check"></i><b>3.1.1</b> Total de Séries Disponíveis</a></li>
+<li class="chapter" data-level="3.1.2" data-path="explorador-1.html"><a href="explorador-1.html#filtros"><i class="fa fa-check"></i><b>3.1.2</b> Filtros</a></li>
+<li class="chapter" data-level="3.1.3" data-path="explorador-1.html"><a href="explorador-1.html#tabela-de-séries"><i class="fa fa-check"></i><b>3.1.3</b> Tabela de Séries</a></li>
+<li class="chapter" data-level="3.1.4" data-path="explorador-1.html"><a href="explorador-1.html#barra-de-busca"><i class="fa fa-check"></i><b>3.1.4</b> Barra de Busca</a></li>
+<li class="chapter" data-level="3.1.5" data-path="explorador-1.html"><a href="explorador-1.html#seleção-de-séries"><i class="fa fa-check"></i><b>3.1.5</b> Seleção de Séries</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="explorador-1.html"><a href="explorador-1.html#navegação"><i class="fa fa-check"></i><b>3.2</b> Navegação</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="modelagem-1.html"><a href="modelagem-1.html"><i class="fa fa-check"></i><b>4</b> Modelagem</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="modelagem-1.html"><a href="modelagem-1.html#transformações"><i class="fa fa-check"></i><b>4.1</b> Transformações</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="modelagem-1.html"><a href="modelagem-1.html#transformação-de-box-cox"><i class="fa fa-check"></i><b>4.1.1</b> Transformação de Box-Cox</a></li>
+<li class="chapter" data-level="4.1.2" data-path="modelagem-1.html"><a href="modelagem-1.html#médias-móveis"><i class="fa fa-check"></i><b>4.1.2</b> Médias Móveis</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="modelagem-1.html"><a href="modelagem-1.html#decomposições"><i class="fa fa-check"></i><b>4.2</b> Decomposições</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="modelagem-1.html"><a href="modelagem-1.html#funcionalidades-1"><i class="fa fa-check"></i><b>4.2.1</b> Funcionalidades</a></li>
+<li class="chapter" data-level="4.2.2" data-path="modelagem-1.html"><a href="modelagem-1.html#decomposição-aditiva"><i class="fa fa-check"></i><b>4.2.2</b> Decomposição Aditiva</a></li>
+<li class="chapter" data-level="4.2.3" data-path="modelagem-1.html"><a href="modelagem-1.html#decomposição-multiplicativa"><i class="fa fa-check"></i><b>4.2.3</b> Decomposição Multiplicativa</a></li>
+<li class="chapter" data-level="4.2.4" data-path="modelagem-1.html"><a href="modelagem-1.html#x11"><i class="fa fa-check"></i><b>4.2.4</b> X11</a></li>
+<li class="chapter" data-level="4.2.5" data-path="modelagem-1.html"><a href="modelagem-1.html#seats"><i class="fa fa-check"></i><b>4.2.5</b> SEATS</a></li>
+<li class="chapter" data-level="4.2.6" data-path="modelagem-1.html"><a href="modelagem-1.html#stl-decomposição-sazonal-e-de-tendência"><i class="fa fa-check"></i><b>4.2.6</b> STL: Decomposição Sazonal e de Tendência</a></li>
+<li class="chapter" data-level="4.2.7" data-path="modelagem-1.html"><a href="modelagem-1.html#aprendendo-a-usar-stl"><i class="fa fa-check"></i><b>4.2.7</b> Aprendendo a Usar STL</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="modelagem-1.html"><a href="modelagem-1.html#correlogramas"><i class="fa fa-check"></i><b>4.3</b> Correlogramas</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="modelagem-1.html"><a href="modelagem-1.html#funcionalidades-2"><i class="fa fa-check"></i><b>4.3.1</b> Funcionalidades</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="modelagem-1.html"><a href="modelagem-1.html#diferenciações"><i class="fa fa-check"></i><b>4.4</b> Diferenciações</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="modelagem-1.html"><a href="modelagem-1.html#o-que-é-uma-série-temporal-estacionária"><i class="fa fa-check"></i><b>4.4.1</b> O que é uma Série Temporal Estacionária?</a></li>
+<li class="chapter" data-level="4.4.2" data-path="modelagem-1.html"><a href="modelagem-1.html#ciclicidade-vs.-estacionariedade"><i class="fa fa-check"></i><b>4.4.2</b> Ciclicidade vs. Estacionariedade</a></li>
+<li class="chapter" data-level="4.4.3" data-path="modelagem-1.html"><a href="modelagem-1.html#como-diferenciar-uma-série-temporal"><i class="fa fa-check"></i><b>4.4.3</b> Como Diferenciar uma Série Temporal</a></li>
+<li class="chapter" data-level="4.4.4" data-path="modelagem-1.html"><a href="modelagem-1.html#diferenciação-e-transformações"><i class="fa fa-check"></i><b>4.4.4</b> Diferenciação e Transformações</a></li>
+<li class="chapter" data-level="4.4.5" data-path="modelagem-1.html"><a href="modelagem-1.html#identificando-séries-não-estacionárias"><i class="fa fa-check"></i><b>4.4.5</b> Identificando Séries Não Estacionárias</a></li>
+<li class="chapter" data-level="4.4.6" data-path="modelagem-1.html"><a href="modelagem-1.html#funcionalidades-3"><i class="fa fa-check"></i><b>4.4.6</b> Funcionalidades</a></li>
+<li class="chapter" data-level="4.4.7" data-path="modelagem-1.html"><a href="modelagem-1.html#teste-de-ljung-box"><i class="fa fa-check"></i><b>4.4.7</b> Teste de Ljung-Box</a></li>
+<li class="chapter" data-level="4.4.8" data-path="modelagem-1.html"><a href="modelagem-1.html#interpretação"><i class="fa fa-check"></i><b>4.4.8</b> Interpretação</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html"><i class="fa fa-check"></i><b>5</b> Modelagem Diagnóstica</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html#modelo-arima"><i class="fa fa-check"></i><b>5.1</b> Modelo ARIMA</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html#escolhendo-os-parâmetros-p-d-e-q"><i class="fa fa-check"></i><b>5.1.1</b> Escolhendo os parâmetros <span class="math inline">\(p\)</span>, <span class="math inline">\(d\)</span>, e <span class="math inline">\(q\)</span></a></li>
+<li class="chapter" data-level="5.1.2" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html#teste-de-ljung-box-1"><i class="fa fa-check"></i><b>5.1.2</b> Teste de Ljung-Box</a></li>
+<li class="chapter" data-level="5.1.3" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html#teste-de-shapiro-wilk"><i class="fa fa-check"></i><b>5.1.3</b> Teste de Shapiro-Wilk</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html#modelo-sarima"><i class="fa fa-check"></i><b>5.2</b> Modelo SARIMA</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html#acfpacf"><i class="fa fa-check"></i><b>5.2.1</b> ACF/PACF</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html#casos-especiais-de-modelos-arima"><i class="fa fa-check"></i><b>5.3</b> Casos Especiais de Modelos ARIMA</a></li>
+<li class="chapter" data-level="5.4" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html#compreendendo-modelos-arima"><i class="fa fa-check"></i><b>5.4</b> Compreendendo Modelos ARIMA</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html#efeito-da-constante-c"><i class="fa fa-check"></i><b>5.4.1</b> Efeito da Constante <span class="math inline">\(c\)</span></a></li>
+<li class="chapter" data-level="5.4.2" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html#valor-de-d"><i class="fa fa-check"></i><b>5.4.2</b> Valor de <span class="math inline">\(d\)</span></a></li>
+<li class="chapter" data-level="5.4.3" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html#valor-de-p"><i class="fa fa-check"></i><b>5.4.3</b> Valor de <span class="math inline">\(p\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html#redes-neurais-auto-regressivas-nnar"><i class="fa fa-check"></i><b>5.5</b> Redes Neurais Auto Regressivas (NNAR)</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html#previsões-e-intervalos-de-predição"><i class="fa fa-check"></i><b>5.5.1</b> Previsões e Intervalos de Predição</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html#considerações-finais"><i class="fa fa-check"></i><b>5.6</b> Considerações Finais</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html#arima"><i class="fa fa-check"></i><b>5.6.1</b> ARIMA</a></li>
+<li class="chapter" data-level="5.6.2" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html#sarima"><i class="fa fa-check"></i><b>5.6.2</b> SARIMA</a></li>
+<li class="chapter" data-level="5.6.3" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html#nnar"><i class="fa fa-check"></i><b>5.6.3</b> NNAR</a></li>
+<li class="chapter" data-level="5.6.4" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html#escolha-do-modelo"><i class="fa fa-check"></i><b>5.6.4</b> Escolha do Modelo</a></li>
+<li class="chapter" data-level="5.6.5" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html#automação-e-compreensão"><i class="fa fa-check"></i><b>5.6.5</b> Automação e Compreensão</a></li>
+<li class="chapter" data-level="5.6.6" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html#previsões-de-longo-prazo"><i class="fa fa-check"></i><b>5.6.6</b> Previsões de Longo Prazo</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="previsões.html"><a href="previsões.html"><i class="fa fa-check"></i><b>6</b> Previsões</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="previsões.html"><a href="previsões.html#previsões-pontuais"><i class="fa fa-check"></i><b>6.1</b> Previsões Pontuais</a></li>
+<li class="chapter" data-level="6.2" data-path="previsões.html"><a href="previsões.html#intervalos-de-previsão"><i class="fa fa-check"></i><b>6.2</b> Intervalos de Previsão</a></li>
+<li class="chapter" data-level="6.3" data-path="previsões.html"><a href="previsões.html#nnar-1"><i class="fa fa-check"></i><b>6.3</b> NNAR</a></li>
+<li class="chapter" data-level="6.4" data-path="previsões.html"><a href="previsões.html#utilizando-parâmetros-de-previsão-no-site"><i class="fa fa-check"></i><b>6.4</b> Utilizando Parâmetros de Previsão no Site</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="previsões.html"><a href="previsões.html#janela-de-previsão"><i class="fa fa-check"></i><b>6.4.1</b> Janela de Previsão</a></li>
+<li class="chapter" data-level="6.4.2" data-path="previsões.html"><a href="previsões.html#intervalos-de-confiança-i.c."><i class="fa fa-check"></i><b>6.4.2</b> Intervalos de Confiança (I.C.)</a></li>
+<li class="chapter" data-level="6.4.3" data-path="previsões.html"><a href="previsões.html#gráficos-interativos-plotly"><i class="fa fa-check"></i><b>6.4.3</b> Gráficos Interativos Plotly</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="previsões.html"><a href="previsões.html#conclusão"><i class="fa fa-check"></i><b>6.5</b> Conclusão</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Análise e Previsão de Séries Temporais com Dados do IPEA</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="introdução-1" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">Chapter 2</span> Introdução<a href="introdução-1.html#introdução-1" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="sobre-o-projeto" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Sobre o Projeto<a href="introdução-1.html#sobre-o-projeto" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>O <code>ipeadatar-shiny</code> é uma plataforma interativa para análise e visualização de séries temporais socioeconômicas. Este projeto foi criado na disciplina SME0808 - Séries Temporais e Aprendizado Dinâmico no segundo semestre de 2023 e é fortemente baseado nos conceitos e técnicas apresentados no livro “Forecasting: Principles and Practice” (fpp3), um recurso abrangente sobre modelagem e previsão de séries temporais em linguagem R.</p>
+<div id="estrutura-da-documentação" class="section level3 hasAnchor" number="2.1.1">
+<h3><span class="header-section-number">2.1.1</span> Estrutura da documentação<a href="introdução-1.html#estrutura-da-documentação" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A documentação está organizada em várias seções, cada uma dedicada a um aspecto específico da nossa plataforma web:</p>
+<ul>
+<li><strong>Explorador</strong>: Um guia para explorar algumas das séries fornecidas pelo pacote <a href="https://github.com/gomesleduardo/ipeadatar">ipeadatar</a>.</li>
+<li><strong>Modelagem</strong>: Página interativa com técnicas de decomposição e pré processamento de séries temporais.</li>
+<li><strong>Diagnóstico</strong>: Análises de resíduos e testes de hipótese para avaliar modelos preditivos de séries temporais.</li>
+<li><strong>Previsão</strong>: Previsões realizadas pelo modelo ajustado.</li>
+</ul>
+<p>Cada página oferece uma combinação de teoria, exemplos práticos e orientações para utilizar efetivamente essas ferramentas na nossa plataforma.</p>
+</div>
+</div>
+<div id="contribuições" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Contribuições<a href="introdução-1.html#contribuições" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Contribuições para o projeto são sempre bem-vindas! Se você deseja contribuir com código, documentação, relatórios de bugs ou sugestões, por favor, veja nossa página de <a href="https://github.com/chicodias/ipeadatar-shiny/CONTRIBUTING.md">Contribuições</a>.</p>
+</div>
+<div id="licença" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Licença<a href="introdução-1.html#licença" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Este projeto está sob a licença MIT. Para mais detalhes, veja o arquivo <a href="https://github.com/chicodias/ipeadatar-shiny/LICENSE.md">LICENSE</a>.</p>
+</div>
+<div id="contato" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> Contato<a href="introdução-1.html#contato" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Para mais informações, dúvidas ou feedback, não hesite em nos contatar através das <a href="https://github.com/chicodias/ipeadatar-shiny/issues">Issues</a> do GitHub.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="explorador-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/01-intro.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

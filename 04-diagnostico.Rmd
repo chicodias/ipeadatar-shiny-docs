@@ -1,4 +1,4 @@
-# Modelagem
+# Modelagem Diagnóstica 
 
 A modelagem ARIMA (AutoRegressive Integrated Moving Average) é uma abordagem central para a previsão de séries temporais. Ao contrário dos modelos de suavização exponencial que são baseados em uma descrição de tendência e sazonalidade nos dados, os modelos ARIMA visam descrever as autocorrelações nos dados.
 
@@ -28,11 +28,11 @@ onde:
 
 A seleção dos parâmetros \( p \), \( d \), e \( q \) pode ser desafiadora, mas é fundamental para capturar a estrutura correta dos dados. O valor de \( d \) é determinado pela quantidade de diferenciações necessárias para alcançar a estacionariedade. Os valores de \( p \) e \( q \) são escolhidos com base na autocorrelação e autocorrelação parcial, respectivamente.
 
-## Teste de Ljung-Box
+### Teste de Ljung-Box
 
 O teste de Ljung-Box é utilizado para verificar se há autocorrelação significativa nos resíduos de um modelo de séries temporais. Valores grandes da estatística \( Q^* \) indicam que as autocorrelações não provêm de uma série de ruído branco.
 
-## Teste de Shapiro-Wilk
+### Teste de Shapiro-Wilk
 
 O teste de Shapiro-Wilk é usado para avaliar a normalidade dos resíduos. Um valor-p baixo indica que os resíduos não são distribuídos normalmente, o que pode invalidar algumas das suposições dos testes estatísticos realizados.
 
@@ -81,15 +81,11 @@ O valor de \( d \) também afeta os intervalos de previsão — quanto maior o v
 O valor de \( p \) é importante se os dados mostram ciclos. Para obter previsões cíclicas, é necessário ter \( p \geq 2 \), juntamente com algumas condições adicionais nos parâmetros.
 
 
-## NNAR
+## Redes Neurais Auto Regressivas (NNAR)
 
 Os modelos de rede neural são métodos de previsão baseados em modelos matemáticos simplificados do cérebro, permitindo relações complexas e não lineares entre a variável de resposta e seus preditores.
 
-### Arquitetura da Rede Neural
-
 Uma rede neural é composta por camadas de "neurônios". Os preditores formam a camada inferior e as previsões a camada superior. Pode haver camadas intermediárias contendo "neurônios ocultos". As redes mais simples, sem camadas ocultas, são equivalentes a regressões lineares.
-
-### Rede Neural Autoregressiva (NNAR)
 
 Em séries temporais, valores defasados da série podem ser usados como entradas para uma rede neural, assim como em um modelo autoregressivo linear. Chamamos isso de modelo NNAR.
 

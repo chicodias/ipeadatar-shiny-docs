@@ -1,6 +1,5 @@
 # Previsões
 
-![Previsoes](img/07-pred.jpeg)
 
 
 A precisão das previsões em modelos ARIMA, SARIMA e NNAR depende crucialmente do ajuste e da validação adequados dos modelos. Antes de avançarmos para as previsões, é essencial que os modelos estejam bem ajustados e que os resíduos tenham sido submetidos a testes apropriados para autocorrelação e normalidade.
@@ -29,6 +28,8 @@ Para modelos NNAR, a previsão é um processo iterativo onde os valores históri
 
 
 ## Utilizando Parâmetros de Previsão no Site
+
+![Previsoes](img/07-pred.jpeg)
 
 Ao realizar previsões com modelos ARIMA, SARIMA ou NNAR no site, você tem a capacidade de ajustar vários parâmetros que afetam a saída da previsão e como você visualiza os resultados.
 

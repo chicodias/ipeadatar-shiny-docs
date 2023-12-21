@@ -7,7 +7,7 @@ Na seção de modelagem da plataforma `ipeadatar-shiny`, os usuários podem apli
 
 ![Transformações](img/02-transf.jpeg)
 
-## Transformação de Box-Cox
+### Transformação de Box-Cox
 
 A transformação de Box-Cox é uma ferramenta estatística amplamente utilizada para estabilizar a variância de uma série temporal. Quando os dados apresentam variação que aumenta ou diminui em função do nível da série, a transformação pode ser extremamente útil.
 
@@ -155,7 +155,7 @@ Esta aba permite aos usuários aplicarem diferenciações às séries temporais 
 - **Aplicação de diferenciações**: Aplique diferenciação simples ou sazonal diretamente na plataforma para analisar o impacto na estacionariedade da série.
 - **Visualização dos resultados**: Veja o efeito da diferenciação nas propriedades estatísticas da série e na sua aparência visual.
 
-## Teste de Ljung-Box
+### Teste de Ljung-Box
 
 Além de examinar o gráfico ACF, podemos realizar um teste mais formal para autocorrelação considerando um conjunto de valores de \( r_k \) como um grupo, em vez de tratá-los separadamente, onde \( r_k \) é a autocorrelação para o lag \( k \). Observar o gráfico ACF à procura de picos fora dos limites implica em múltiplos testes de hipótese, cada um com uma pequena probabilidade de um falso positivo. Com vários testes, é provável que pelo menos um resulte em um falso positivo, levando à conclusão incorreta de que os resíduos têm autocorrelação remanescente.
 
