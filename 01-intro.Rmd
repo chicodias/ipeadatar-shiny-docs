@@ -1,21 +1,29 @@
-# Introduction {#intro}
+# Bem-vindo ao ipeadatar-shiny
 
-You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \@ref(methods).
+## Sobre o Projeto
 
-Figures and tables with captions will be placed in `figure` and `table` environments, respectively.
+O `ipeadatar-shiny` é uma plataforma interativa para análise e visualização de séries temporais socioeconômicas. Este projeto foi criado na disciplina SME0808 - Séries Temporais e Aprendizado Dinâmico no segundo semestre de 2023 e é fortemente baseado nos conceitos e técnicas apresentados no livro "Forecasting: Principles and Practice" (fpp3), um recurso abrangente sobre modelagem e previsão de séries temporais em linguagem R.
 
-```{r nice-fig, fig.cap='Here is a nice figure!', out.width='80%', fig.asp=.75, fig.align='center'}
-par(mar = c(4, 4, .1, .1))
-plot(pressure, type = 'b', pch = 19)
-```
+### Estrutura da Wiki
 
-Reference a figure by its code chunk label with the `fig:` prefix, e.g., see Figure \@ref(fig:nice-fig). Similarly, you can reference tables generated from `knitr::kable()`, e.g., see Table \@ref(tab:nice-tab).
+A Wiki está organizada em várias seções, cada uma dedicada a um aspecto específico da nossa plataforma web:
 
-```{r nice-tab, tidy=FALSE}
-knitr::kable(
-  head(iris, 20), caption = 'Here is a nice table!',
-  booktabs = TRUE
-)
-```
+- **Explorador**: Um guia para explorar algumas das séries fornecidas pelo pacote [ipeadatar](https://github.com/gomesleduardo/ipeadatar).
+- **Modelagem**: Página interativa com técnicas de decomposição e pré processamento de séries temporais.
+- **Diagnóstico**: Análises de resíduos e testes de hipótese para avaliar modelos preditivos de séries temporais.
+- **Previsão**: Previsões realizadas pelo modelo ajustado.
 
-You can write citations, too. For example, we are using the **bookdown** package [@R-bookdown] in this sample book, which was built on top of R Markdown and **knitr** [@xie2015].
+Cada página oferece uma combinação de teoria, exemplos práticos e orientações para utilizar efetivamente essas ferramentas na nossa plataforma.
+
+## Contribuições
+
+Contribuições para o projeto são sempre bem-vindas! Se você deseja contribuir com código, documentação, relatórios de bugs ou sugestões, por favor, veja nossa página de [Contribuições](https://github.com/chicodias/ipeadatar-shiny/CONTRIBUTING.md).
+
+## Licença
+
+Este projeto está sob a licença MIT. Para mais detalhes, veja o arquivo [LICENSE](https://github.com/chicodias/ipeadatar-shiny/LICENSE.md).
+
+## Contato
+
+Para mais informações, dúvidas ou feedback, não hesite em nos contatar através das [Issues](https://github.com/chicodias/ipeadatar-shiny/issues) do GitHub.
+
