@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 Modelagem Diagnóstica | Análise e Previsão de Séries Temporais com Dados do IPEA</title>
+  <meta name="description" content="Este documento serve como um guia completo para a aplicação web desenvolvida para a exploração interativa, modelagem e previsão de séries temporais utilizando dados do Instituto de Pesquisa Econômica Aplicada (IPEA). Destinado a analistas, pesquisadores e entusiastas de dados, este material detalha as funcionalidades da aplicação, metodologias de modelagem e práticas recomendadas para diagnóstico e previsão de séries temporais." />
+  <meta name="generator" content="bookdown 0.37 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 Modelagem Diagnóstica | Análise e Previsão de Séries Temporais com Dados do IPEA" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Este documento serve como um guia completo para a aplicação web desenvolvida para a exploração interativa, modelagem e previsão de séries temporais utilizando dados do Instituto de Pesquisa Econômica Aplicada (IPEA). Destinado a analistas, pesquisadores e entusiastas de dados, este material detalha as funcionalidades da aplicação, metodologias de modelagem e práticas recomendadas para diagnóstico e previsão de séries temporais." />
+  <meta name="github-repo" content="chicodias/ipeadatar-shiny" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 Modelagem Diagnóstica | Análise e Previsão de Séries Temporais com Dados do IPEA" />
+  
+  <meta name="twitter:description" content="Este documento serve como um guia completo para a aplicação web desenvolvida para a exploração interativa, modelagem e previsão de séries temporais utilizando dados do Instituto de Pesquisa Econômica Aplicada (IPEA). Destinado a analistas, pesquisadores e entusiastas de dados, este material detalha as funcionalidades da aplicação, metodologias de modelagem e práticas recomendadas para diagnóstico e previsão de séries temporais." />
+  
+
+<meta name="author" content="Francisco Miranda" />
+
+
+<meta name="date" content="2023-12-21" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="modelagem.html"/>
+<link rel="next" href="previsões.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introdução</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#sobre-o-projeto"><i class="fa fa-check"></i><b>1.1</b> Sobre o Projeto</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="index.html"><a href="index.html#estrutura-da-documentação"><i class="fa fa-check"></i><b>1.1.1</b> Estrutura da documentação</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#contribuições"><i class="fa fa-check"></i><b>1.2</b> Contribuições</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#licença"><i class="fa fa-check"></i><b>1.3</b> Licença</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#contato"><i class="fa fa-check"></i><b>1.4</b> Contato</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="explorador.html"><a href="explorador.html"><i class="fa fa-check"></i><b>2</b> Explorador</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="explorador.html"><a href="explorador.html#funcionalidades"><i class="fa fa-check"></i><b>2.1</b> Funcionalidades</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="explorador.html"><a href="explorador.html#total-de-séries-disponíveis"><i class="fa fa-check"></i><b>2.1.1</b> Total de Séries Disponíveis</a></li>
+<li class="chapter" data-level="2.1.2" data-path="explorador.html"><a href="explorador.html#filtros"><i class="fa fa-check"></i><b>2.1.2</b> Filtros</a></li>
+<li class="chapter" data-level="2.1.3" data-path="explorador.html"><a href="explorador.html#tabela-de-séries"><i class="fa fa-check"></i><b>2.1.3</b> Tabela de Séries</a></li>
+<li class="chapter" data-level="2.1.4" data-path="explorador.html"><a href="explorador.html#barra-de-busca"><i class="fa fa-check"></i><b>2.1.4</b> Barra de Busca</a></li>
+<li class="chapter" data-level="2.1.5" data-path="explorador.html"><a href="explorador.html#seleção-de-séries"><i class="fa fa-check"></i><b>2.1.5</b> Seleção de Séries</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="explorador.html"><a href="explorador.html#navegação"><i class="fa fa-check"></i><b>2.2</b> Navegação</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="modelagem.html"><a href="modelagem.html"><i class="fa fa-check"></i><b>3</b> Modelagem</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="modelagem.html"><a href="modelagem.html#transformações"><i class="fa fa-check"></i><b>3.1</b> Transformações</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="modelagem.html"><a href="modelagem.html#transformação-de-box-cox"><i class="fa fa-check"></i><b>3.1.1</b> Transformação de Box-Cox</a></li>
+<li class="chapter" data-level="3.1.2" data-path="modelagem.html"><a href="modelagem.html#médias-móveis"><i class="fa fa-check"></i><b>3.1.2</b> Médias Móveis</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="modelagem.html"><a href="modelagem.html#decomposições"><i class="fa fa-check"></i><b>3.2</b> Decomposições</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="modelagem.html"><a href="modelagem.html#funcionalidades-1"><i class="fa fa-check"></i><b>3.2.1</b> Funcionalidades</a></li>
+<li class="chapter" data-level="3.2.2" data-path="modelagem.html"><a href="modelagem.html#decomposição-aditiva"><i class="fa fa-check"></i><b>3.2.2</b> Decomposição Aditiva</a></li>
+<li class="chapter" data-level="3.2.3" data-path="modelagem.html"><a href="modelagem.html#decomposição-multiplicativa"><i class="fa fa-check"></i><b>3.2.3</b> Decomposição Multiplicativa</a></li>
+<li class="chapter" data-level="3.2.4" data-path="modelagem.html"><a href="modelagem.html#x11"><i class="fa fa-check"></i><b>3.2.4</b> X11</a></li>
+<li class="chapter" data-level="3.2.5" data-path="modelagem.html"><a href="modelagem.html#seats"><i class="fa fa-check"></i><b>3.2.5</b> SEATS</a></li>
+<li class="chapter" data-level="3.2.6" data-path="modelagem.html"><a href="modelagem.html#stl-decomposição-sazonal-e-de-tendência"><i class="fa fa-check"></i><b>3.2.6</b> STL: Decomposição Sazonal e de Tendência</a></li>
+<li class="chapter" data-level="3.2.7" data-path="modelagem.html"><a href="modelagem.html#aprendendo-a-usar-stl"><i class="fa fa-check"></i><b>3.2.7</b> Aprendendo a Usar STL</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="modelagem.html"><a href="modelagem.html#correlogramas"><i class="fa fa-check"></i><b>3.3</b> Correlogramas</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="modelagem.html"><a href="modelagem.html#funcionalidades-2"><i class="fa fa-check"></i><b>3.3.1</b> Funcionalidades</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="modelagem.html"><a href="modelagem.html#diferenciações"><i class="fa fa-check"></i><b>3.4</b> Diferenciações</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="modelagem.html"><a href="modelagem.html#o-que-é-uma-série-temporal-estacionária"><i class="fa fa-check"></i><b>3.4.1</b> O que é uma Série Temporal Estacionária?</a></li>
+<li class="chapter" data-level="3.4.2" data-path="modelagem.html"><a href="modelagem.html#ciclicidade-vs.-estacionariedade"><i class="fa fa-check"></i><b>3.4.2</b> Ciclicidade vs. Estacionariedade</a></li>
+<li class="chapter" data-level="3.4.3" data-path="modelagem.html"><a href="modelagem.html#como-diferenciar-uma-série-temporal"><i class="fa fa-check"></i><b>3.4.3</b> Como Diferenciar uma Série Temporal</a></li>
+<li class="chapter" data-level="3.4.4" data-path="modelagem.html"><a href="modelagem.html#diferenciação-e-transformações"><i class="fa fa-check"></i><b>3.4.4</b> Diferenciação e Transformações</a></li>
+<li class="chapter" data-level="3.4.5" data-path="modelagem.html"><a href="modelagem.html#identificando-séries-não-estacionárias"><i class="fa fa-check"></i><b>3.4.5</b> Identificando Séries Não Estacionárias</a></li>
+<li class="chapter" data-level="3.4.6" data-path="modelagem.html"><a href="modelagem.html#funcionalidades-3"><i class="fa fa-check"></i><b>3.4.6</b> Funcionalidades</a></li>
+<li class="chapter" data-level="3.4.7" data-path="modelagem.html"><a href="modelagem.html#teste-de-ljung-box"><i class="fa fa-check"></i><b>3.4.7</b> Teste de Ljung-Box</a></li>
+<li class="chapter" data-level="3.4.8" data-path="modelagem.html"><a href="modelagem.html#interpretação"><i class="fa fa-check"></i><b>3.4.8</b> Interpretação</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html"><i class="fa fa-check"></i><b>4</b> Modelagem Diagnóstica</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html#modelo-arima"><i class="fa fa-check"></i><b>4.1</b> Modelo ARIMA</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html#escolhendo-os-parâmetros-p-d-e-q"><i class="fa fa-check"></i><b>4.1.1</b> Escolhendo os parâmetros <span class="math inline">\(p\)</span>, <span class="math inline">\(d\)</span>, e <span class="math inline">\(q\)</span></a></li>
+<li class="chapter" data-level="4.1.2" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html#teste-de-ljung-box-1"><i class="fa fa-check"></i><b>4.1.2</b> Teste de Ljung-Box</a></li>
+<li class="chapter" data-level="4.1.3" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html#teste-de-shapiro-wilk"><i class="fa fa-check"></i><b>4.1.3</b> Teste de Shapiro-Wilk</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html#modelo-sarima"><i class="fa fa-check"></i><b>4.2</b> Modelo SARIMA</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html#acfpacf"><i class="fa fa-check"></i><b>4.2.1</b> ACF/PACF</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html#casos-especiais-de-modelos-arima"><i class="fa fa-check"></i><b>4.3</b> Casos Especiais de Modelos ARIMA</a></li>
+<li class="chapter" data-level="4.4" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html#compreendendo-modelos-arima"><i class="fa fa-check"></i><b>4.4</b> Compreendendo Modelos ARIMA</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html#efeito-da-constante-c"><i class="fa fa-check"></i><b>4.4.1</b> Efeito da Constante <span class="math inline">\(c\)</span></a></li>
+<li class="chapter" data-level="4.4.2" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html#valor-de-d"><i class="fa fa-check"></i><b>4.4.2</b> Valor de <span class="math inline">\(d\)</span></a></li>
+<li class="chapter" data-level="4.4.3" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html#valor-de-p"><i class="fa fa-check"></i><b>4.4.3</b> Valor de <span class="math inline">\(p\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html#redes-neurais-auto-regressivas-nnar"><i class="fa fa-check"></i><b>4.5</b> Redes Neurais Auto Regressivas (NNAR)</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html#previsões-e-intervalos-de-predição"><i class="fa fa-check"></i><b>4.5.1</b> Previsões e Intervalos de Predição</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html#considerações-finais"><i class="fa fa-check"></i><b>4.6</b> Considerações Finais</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html#arima"><i class="fa fa-check"></i><b>4.6.1</b> ARIMA</a></li>
+<li class="chapter" data-level="4.6.2" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html#sarima"><i class="fa fa-check"></i><b>4.6.2</b> SARIMA</a></li>
+<li class="chapter" data-level="4.6.3" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html#nnar"><i class="fa fa-check"></i><b>4.6.3</b> NNAR</a></li>
+<li class="chapter" data-level="4.6.4" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html#escolha-do-modelo"><i class="fa fa-check"></i><b>4.6.4</b> Escolha do Modelo</a></li>
+<li class="chapter" data-level="4.6.5" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html#automação-e-compreensão"><i class="fa fa-check"></i><b>4.6.5</b> Automação e Compreensão</a></li>
+<li class="chapter" data-level="4.6.6" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html#previsões-de-longo-prazo"><i class="fa fa-check"></i><b>4.6.6</b> Previsões de Longo Prazo</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="previsões.html"><a href="previsões.html"><i class="fa fa-check"></i><b>5</b> Previsões</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="previsões.html"><a href="previsões.html#previsões-pontuais"><i class="fa fa-check"></i><b>5.1</b> Previsões Pontuais</a></li>
+<li class="chapter" data-level="5.2" data-path="previsões.html"><a href="previsões.html#intervalos-de-previsão"><i class="fa fa-check"></i><b>5.2</b> Intervalos de Previsão</a></li>
+<li class="chapter" data-level="5.3" data-path="previsões.html"><a href="previsões.html#nnar-1"><i class="fa fa-check"></i><b>5.3</b> NNAR</a></li>
+<li class="chapter" data-level="5.4" data-path="previsões.html"><a href="previsões.html#utilizando-parâmetros-de-previsão-no-site"><i class="fa fa-check"></i><b>5.4</b> Utilizando Parâmetros de Previsão no Site</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="previsões.html"><a href="previsões.html#janela-de-previsão"><i class="fa fa-check"></i><b>5.4.1</b> Janela de Previsão</a></li>
+<li class="chapter" data-level="5.4.2" data-path="previsões.html"><a href="previsões.html#intervalos-de-confiança-i.c."><i class="fa fa-check"></i><b>5.4.2</b> Intervalos de Confiança (I.C.)</a></li>
+<li class="chapter" data-level="5.4.3" data-path="previsões.html"><a href="previsões.html#gráficos-interativos-plotly"><i class="fa fa-check"></i><b>5.4.3</b> Gráficos Interativos Plotly</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="previsões.html"><a href="previsões.html#conclusão"><i class="fa fa-check"></i><b>5.5</b> Conclusão</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Análise e Previsão de Séries Temporais com Dados do IPEA</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="modelagem-diagnóstica" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Chapter 4</span> Modelagem Diagnóstica<a href="modelagem-diagnóstica.html#modelagem-diagnóstica" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>A modelagem ARIMA (AutoRegressive Integrated Moving Average) é uma abordagem central para a previsão de séries temporais. Ao contrário dos modelos de suavização exponencial que são baseados em uma descrição de tendência e sazonalidade nos dados, os modelos ARIMA visam descrever as autocorrelações nos dados.</p>
+<div class="float">
+<img src="img/06-diag.jpeg" alt="Diagnostico" />
+<div class="figcaption">Diagnostico</div>
+</div>
+<div id="modelo-arima" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Modelo ARIMA<a href="modelagem-diagnóstica.html#modelo-arima" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Um modelo ARIMA combina autoregressão (AR), diferenciação (I - Integrated) e médias móveis (MA). A autoregressão utiliza uma combinação linear dos valores passados da variável para fazer previsões, enquanto que as médias móveis utilizam erros de previsão passados.</p>
+<p>A equação geral de um modelo ARIMA é:</p>
+<p><span class="math display">\[
+\begin{equation}
+  (1 - \phi_1 B - \cdots - \phi_p B^p)(1 - B)^d y_{t} = c + (1 + \theta_1 B + \cdots + \theta_q B^q) \varepsilon_t
+\end{equation}
+\]</span></p>
+<p>onde:
+- <span class="math inline">\(B\)</span> é o operador de defasagem (backshift),
+- <span class="math inline">\(\phi_1, \ldots, \phi_p\)</span> são os parâmetros do componente autoregressivo,
+- <span class="math inline">\(d\)</span> é o número de diferenciações necessárias para tornar a série estacionária,
+- <span class="math inline">\(\theta_1, \ldots, \theta_q\)</span> são os parâmetros do componente de médias móveis,
+- <span class="math inline">\(c\)</span> é uma constante, e
+- <span class="math inline">\(\varepsilon_t\)</span> é o termo de erro (ruído branco).</p>
+<div id="escolhendo-os-parâmetros-p-d-e-q" class="section level3 hasAnchor" number="4.1.1">
+<h3><span class="header-section-number">4.1.1</span> Escolhendo os parâmetros <span class="math inline">\(p\)</span>, <span class="math inline">\(d\)</span>, e <span class="math inline">\(q\)</span><a href="modelagem-diagnóstica.html#escolhendo-os-parâmetros-p-d-e-q" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A seleção dos parâmetros <span class="math inline">\(p\)</span>, <span class="math inline">\(d\)</span>, e <span class="math inline">\(q\)</span> pode ser desafiadora, mas é fundamental para capturar a estrutura correta dos dados. O valor de <span class="math inline">\(d\)</span> é determinado pela quantidade de diferenciações necessárias para alcançar a estacionariedade. Os valores de <span class="math inline">\(p\)</span> e <span class="math inline">\(q\)</span> são escolhidos com base na autocorrelação e autocorrelação parcial, respectivamente.</p>
+</div>
+<div id="teste-de-ljung-box-1" class="section level3 hasAnchor" number="4.1.2">
+<h3><span class="header-section-number">4.1.2</span> Teste de Ljung-Box<a href="modelagem-diagnóstica.html#teste-de-ljung-box-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>O teste de Ljung-Box é utilizado para verificar se há autocorrelação significativa nos resíduos de um modelo de séries temporais. Valores grandes da estatística <span class="math inline">\(Q^*\)</span> indicam que as autocorrelações não provêm de uma série de ruído branco.</p>
+</div>
+<div id="teste-de-shapiro-wilk" class="section level3 hasAnchor" number="4.1.3">
+<h3><span class="header-section-number">4.1.3</span> Teste de Shapiro-Wilk<a href="modelagem-diagnóstica.html#teste-de-shapiro-wilk" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>O teste de Shapiro-Wilk é usado para avaliar a normalidade dos resíduos. Um valor-p baixo indica que os resíduos não são distribuídos normalmente, o que pode invalidar algumas das suposições dos testes estatísticos realizados.</p>
+</div>
+</div>
+<div id="modelo-sarima" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Modelo SARIMA<a href="modelagem-diagnóstica.html#modelo-sarima" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Modelos SARIMA estendem os modelos ARIMA para contabilizar a sazonalidade. Um modelo SARIMA é representado como ARIMA(p,d,q)(P,D,Q)_m, onde a parte não sazonal é ARIMA(p,d,q) e a parte sazonal é (P,D,Q)_m, com m sendo o período sazonal (por exemplo, número de observações por ano).</p>
+<div id="acfpacf" class="section level3 hasAnchor" number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> ACF/PACF<a href="modelagem-diagnóstica.html#acfpacf" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A parte sazonal de um modelo AR ou MA será vista nos lags sazonais do PACF e ACF. Por exemplo, um modelo ARIMA(0,0,0)(0,0,1)_12 mostrará um pico no lag 12 no ACF, mas nenhum outro pico significativo, enquanto um modelo ARIMA(0,0,0)(1,0,0)_12 mostrará um decaimento exponencial nos lags sazonais do ACF e um pico significativo no lag 12 do PACF.</p>
+</div>
+</div>
+<div id="casos-especiais-de-modelos-arima" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> Casos Especiais de Modelos ARIMA<a href="modelagem-diagnóstica.html#casos-especiais-de-modelos-arima" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Aqui está uma tabela dos casos especiais de modelos ARIMA:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Modelo</th>
+<th>ARIMA</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Ruído Branco</td>
+<td>ARIMA(0,0,0) sem constante</td>
+</tr>
+<tr class="even">
+<td>Passeio Aleatório</td>
+<td>ARIMA(0,1,0) sem constante</td>
+</tr>
+<tr class="odd">
+<td>Passeio Aleatório com Drift</td>
+<td>ARIMA(0,1,0) com constante</td>
+</tr>
+<tr class="even">
+<td>Autoregressão</td>
+<td>ARIMA(p,0,0)</td>
+</tr>
+<tr class="odd">
+<td>Média Móvel</td>
+<td>ARIMA(0,0,q)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="compreendendo-modelos-arima" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> Compreendendo Modelos ARIMA<a href="modelagem-diagnóstica.html#compreendendo-modelos-arima" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>A função ARIMA() é útil, mas é importante entender o comportamento dos modelos mesmo quando se confia em um procedimento automático para escolher o modelo.</p>
+<div id="efeito-da-constante-c" class="section level3 hasAnchor" number="4.4.1">
+<h3><span class="header-section-number">4.4.1</span> Efeito da Constante <span class="math inline">\(c\)</span><a href="modelagem-diagnóstica.html#efeito-da-constante-c" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A constante <span class="math inline">\(c\)</span> tem um efeito importante nas previsões de longo prazo dos modelos:</p>
+<ul>
+<li>Se <span class="math inline">\(c = 0\)</span> e <span class="math inline">\(d = 0\)</span>, as previsões de longo prazo irão para zero.</li>
+<li>Se <span class="math inline">\(c = 0\)</span> e <span class="math inline">\(d = 1\)</span>, as previsões de longo prazo irão para uma constante não nula.</li>
+<li>Se <span class="math inline">\(c = 0\)</span> e <span class="math inline">\(d = 2\)</span>, as previsões de longo prazo seguirão uma linha reta.</li>
+<li>Se <span class="math inline">\(c \neq 0\)</span> e <span class="math inline">\(d = 0\)</span>, as previsões de longo prazo irão para a média dos dados.</li>
+<li>Se <span class="math inline">\(c \neq 0\)</span> e <span class="math inline">\(d = 1\)</span>, as previsões de longo prazo seguirão uma linha reta.</li>
+<li>Se <span class="math inline">\(c \neq 0\)</span> e <span class="math inline">\(d = 2\)</span>, as previsões de longo prazo seguirão uma tendência quadrática (não recomendado e não permitido pelo fable).</li>
+</ul>
+</div>
+<div id="valor-de-d" class="section level3 hasAnchor" number="4.4.2">
+<h3><span class="header-section-number">4.4.2</span> Valor de <span class="math inline">\(d\)</span><a href="modelagem-diagnóstica.html#valor-de-d" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>O valor de <span class="math inline">\(d\)</span> também afeta os intervalos de previsão — quanto maior o valor de <span class="math inline">\(d\)</span>, mais rapidamente os intervalos de previsão aumentam de tamanho.</p>
+</div>
+<div id="valor-de-p" class="section level3 hasAnchor" number="4.4.3">
+<h3><span class="header-section-number">4.4.3</span> Valor de <span class="math inline">\(p\)</span><a href="modelagem-diagnóstica.html#valor-de-p" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>O valor de <span class="math inline">\(p\)</span> é importante se os dados mostram ciclos. Para obter previsões cíclicas, é necessário ter <span class="math inline">\(p \geq 2\)</span>, juntamente com algumas condições adicionais nos parâmetros.</p>
+</div>
+</div>
+<div id="redes-neurais-auto-regressivas-nnar" class="section level2 hasAnchor" number="4.5">
+<h2><span class="header-section-number">4.5</span> Redes Neurais Auto Regressivas (NNAR)<a href="modelagem-diagnóstica.html#redes-neurais-auto-regressivas-nnar" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Os modelos de rede neural são métodos de previsão baseados em modelos matemáticos simplificados do cérebro, permitindo relações complexas e não lineares entre a variável de resposta e seus preditores.</p>
+<p>Uma rede neural é composta por camadas de “neurônios”. Os preditores formam a camada inferior e as previsões a camada superior. Pode haver camadas intermediárias contendo “neurônios ocultos”. As redes mais simples, sem camadas ocultas, são equivalentes a regressões lineares.</p>
+<p>Em séries temporais, valores defasados da série podem ser usados como entradas para uma rede neural, assim como em um modelo autoregressivo linear. Chamamos isso de modelo NNAR.</p>
+<p>Para dados sazonais, valores observados da última temporada também podem ser adicionados às entradas. Por exemplo, um modelo NNAR(p,P,k)_m tem entradas <span class="math inline">\((y_{t-1}, y_{t-2}, ..., y_{t-p}, y_{t-m}, y_{t-2m}, ..., y_{t-Pm})\)</span> e k neurônios na camada oculta. Um modelo NNAR(p,P,0)_m é equivalente a um modelo ARIMA(p,0,0)(P,0,0)_m, mas sem as restrições nos parâmetros para garantir estacionariedade.</p>
+<p>Ao ajustar um modelo NNAR(p,P,k)_m os valores de p e P especificados, são selecionados automaticamente. Para séries temporais sazonais, os valores padrão são P=1 e p é escolhido com base no modelo linear ótimo ajustado aos dados sazonais ajustados.</p>
+<div id="previsões-e-intervalos-de-predição" class="section level3 hasAnchor" number="4.5.1">
+<h3><span class="header-section-number">4.5.1</span> Previsões e Intervalos de Predição<a href="modelagem-diagnóstica.html#previsões-e-intervalos-de-predição" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Para previsões, a rede é aplicada iterativamente. Para previsões de um passo à frente, usamos os dados históricos disponíveis. Para dois passos à frente, usamos a previsão de um passo como entrada, juntamente com os dados históricos.</p>
+<p>Diferentemente da maioria dos métodos considerados neste livro, as redes neurais não são baseadas em um modelo estocástico bem definido, então não é direto derivar intervalos de predição para as previsões resultantes. No entanto, ainda podemos calcular intervalos de predição usando simulação, onde caminhos de amostra futuros são gerados usando resíduos bootstrap.</p>
+<p>Podemos simular iterativamente caminhos de amostra futuros do modelo, gerando aleatoriamente um valor para ε_t, seja de uma distribuição normal ou por reamostragem dos valores históricos. Ao repetir a simulação de caminhos de amostra, construímos o conhecimento da distribuição para todos os valores futuros com base na rede neural ajustada.</p>
+</div>
+</div>
+<div id="considerações-finais" class="section level2 hasAnchor" number="4.6">
+<h2><span class="header-section-number">4.6</span> Considerações Finais<a href="modelagem-diagnóstica.html#considerações-finais" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Os modelos ARIMA, SARIMA e NNAR representam abordagens poderosas e complementares para a previsão de séries temporais, cada um com suas próprias forças e contextos de aplicação ideais.</p>
+<div id="arima" class="section level3 hasAnchor" number="4.6.1">
+<h3><span class="header-section-number">4.6.1</span> ARIMA<a href="modelagem-diagnóstica.html#arima" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Os modelos ARIMA são adequados para dados não sazonais e são capazes de modelar uma ampla gama de padrões de séries temporais através da autoregressão, diferenciação e médias móveis. Eles são particularmente úteis para descrever e prever séries temporais baseadas em suas próprias observações passadas e erros de previsão passados.</p>
+</div>
+<div id="sarima" class="section level3 hasAnchor" number="4.6.2">
+<h3><span class="header-section-number">4.6.2</span> SARIMA<a href="modelagem-diagnóstica.html#sarima" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Os modelos SARIMA estendem os ARIMA para lidar com a sazonalidade, incorporando termos sazonais adicionais. Eles são essenciais para dados com padrões sazonais claros e fornecem um meio de capturar a estrutura sazonal juntamente com as dinâmicas não sazonais.</p>
+</div>
+<div id="nnar" class="section level3 hasAnchor" number="4.6.3">
+<h3><span class="header-section-number">4.6.3</span> NNAR<a href="modelagem-diagnóstica.html#nnar" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Os modelos NNAR, baseados em redes neurais artificiais, oferecem uma abordagem não linear para previsões de séries temporais, permitindo relações complexas entre a variável de resposta e seus preditores. Com a inclusão de neurônios ocultos e camadas intermediárias, os NNARs podem capturar padrões e interações que podem ser desafiadores para os modelos lineares.</p>
+</div>
+<div id="escolha-do-modelo" class="section level3 hasAnchor" number="4.6.4">
+<h3><span class="header-section-number">4.6.4</span> Escolha do Modelo<a href="modelagem-diagnóstica.html#escolha-do-modelo" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A escolha entre ARIMA, SARIMA e NNAR muitas vezes depende da natureza dos dados e dos padrões observados. Enquanto ARIMA e SARIMA são mais interpretáveis e baseados em modelos estocásticos bem definidos, NNAR pode oferecer uma modelagem mais flexível e capturar dinâmicas complexas que os modelos lineares não conseguem.</p>
+</div>
+<div id="automação-e-compreensão" class="section level3 hasAnchor" number="4.6.5">
+<h3><span class="header-section-number">4.6.5</span> Automação e Compreensão<a href="modelagem-diagnóstica.html#automação-e-compreensão" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Embora existam funções automatizadas para selecionar os melhores modelos, é crucial entender o comportamento e as limitações dos modelos escolhidos. A compreensão dos resultados dos diagnósticos, como os testes de Ljung-Box e Shapiro-Wilk, é fundamental para validar os modelos e garantir previsões confiáveis.</p>
+</div>
+<div id="previsões-de-longo-prazo" class="section level3 hasAnchor" number="4.6.6">
+<h3><span class="header-section-number">4.6.6</span> Previsões de Longo Prazo<a href="modelagem-diagnóstica.html#previsões-de-longo-prazo" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Cada modelo tem implicações distintas para as previsões de longo prazo e os intervalos de predição. Os modelos ARIMA e SARIMA fornecem uma estrutura para entender como os parâmetros influenciam as previsões futuras, enquanto os NNARs dependem de simulações para gerar intervalos de previsão devido à sua natureza não estocástica.</p>
+<p>Em resumo, a escolha e a aplicação cuidadosa dos modelos ARIMA, SARIMA e NNAR podem fornecer insights valiosos e previsões precisas em uma variedade de contextos de séries temporais. A experiência prática com esses modelos e uma compreensão aprofundada de suas capacidades e limitações são essenciais para qualquer analista de séries temporais.</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="modelagem.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="previsões.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/04-diagnostico.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

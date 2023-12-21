@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 Modelagem | Análise e Previsão de Séries Temporais com Dados do IPEA</title>
+  <meta name="description" content="Este documento serve como um guia completo para a aplicação web desenvolvida para a exploração interativa, modelagem e previsão de séries temporais utilizando dados do Instituto de Pesquisa Econômica Aplicada (IPEA). Destinado a analistas, pesquisadores e entusiastas de dados, este material detalha as funcionalidades da aplicação, metodologias de modelagem e práticas recomendadas para diagnóstico e previsão de séries temporais." />
+  <meta name="generator" content="bookdown 0.37 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 Modelagem | Análise e Previsão de Séries Temporais com Dados do IPEA" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Este documento serve como um guia completo para a aplicação web desenvolvida para a exploração interativa, modelagem e previsão de séries temporais utilizando dados do Instituto de Pesquisa Econômica Aplicada (IPEA). Destinado a analistas, pesquisadores e entusiastas de dados, este material detalha as funcionalidades da aplicação, metodologias de modelagem e práticas recomendadas para diagnóstico e previsão de séries temporais." />
+  <meta name="github-repo" content="chicodias/ipeadatar-shiny" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 Modelagem | Análise e Previsão de Séries Temporais com Dados do IPEA" />
+  
+  <meta name="twitter:description" content="Este documento serve como um guia completo para a aplicação web desenvolvida para a exploração interativa, modelagem e previsão de séries temporais utilizando dados do Instituto de Pesquisa Econômica Aplicada (IPEA). Destinado a analistas, pesquisadores e entusiastas de dados, este material detalha as funcionalidades da aplicação, metodologias de modelagem e práticas recomendadas para diagnóstico e previsão de séries temporais." />
+  
+
+<meta name="author" content="Francisco Miranda" />
+
+
+<meta name="date" content="2023-12-21" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="explorador.html"/>
+<link rel="next" href="modelagem-diagnóstica.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introdução</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#sobre-o-projeto"><i class="fa fa-check"></i><b>1.1</b> Sobre o Projeto</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="index.html"><a href="index.html#estrutura-da-documentação"><i class="fa fa-check"></i><b>1.1.1</b> Estrutura da documentação</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#contribuições"><i class="fa fa-check"></i><b>1.2</b> Contribuições</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#licença"><i class="fa fa-check"></i><b>1.3</b> Licença</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#contato"><i class="fa fa-check"></i><b>1.4</b> Contato</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="explorador.html"><a href="explorador.html"><i class="fa fa-check"></i><b>2</b> Explorador</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="explorador.html"><a href="explorador.html#funcionalidades"><i class="fa fa-check"></i><b>2.1</b> Funcionalidades</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="explorador.html"><a href="explorador.html#total-de-séries-disponíveis"><i class="fa fa-check"></i><b>2.1.1</b> Total de Séries Disponíveis</a></li>
+<li class="chapter" data-level="2.1.2" data-path="explorador.html"><a href="explorador.html#filtros"><i class="fa fa-check"></i><b>2.1.2</b> Filtros</a></li>
+<li class="chapter" data-level="2.1.3" data-path="explorador.html"><a href="explorador.html#tabela-de-séries"><i class="fa fa-check"></i><b>2.1.3</b> Tabela de Séries</a></li>
+<li class="chapter" data-level="2.1.4" data-path="explorador.html"><a href="explorador.html#barra-de-busca"><i class="fa fa-check"></i><b>2.1.4</b> Barra de Busca</a></li>
+<li class="chapter" data-level="2.1.5" data-path="explorador.html"><a href="explorador.html#seleção-de-séries"><i class="fa fa-check"></i><b>2.1.5</b> Seleção de Séries</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="explorador.html"><a href="explorador.html#navegação"><i class="fa fa-check"></i><b>2.2</b> Navegação</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="modelagem.html"><a href="modelagem.html"><i class="fa fa-check"></i><b>3</b> Modelagem</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="modelagem.html"><a href="modelagem.html#transformações"><i class="fa fa-check"></i><b>3.1</b> Transformações</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="modelagem.html"><a href="modelagem.html#transformação-de-box-cox"><i class="fa fa-check"></i><b>3.1.1</b> Transformação de Box-Cox</a></li>
+<li class="chapter" data-level="3.1.2" data-path="modelagem.html"><a href="modelagem.html#médias-móveis"><i class="fa fa-check"></i><b>3.1.2</b> Médias Móveis</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="modelagem.html"><a href="modelagem.html#decomposições"><i class="fa fa-check"></i><b>3.2</b> Decomposições</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="modelagem.html"><a href="modelagem.html#funcionalidades-1"><i class="fa fa-check"></i><b>3.2.1</b> Funcionalidades</a></li>
+<li class="chapter" data-level="3.2.2" data-path="modelagem.html"><a href="modelagem.html#decomposição-aditiva"><i class="fa fa-check"></i><b>3.2.2</b> Decomposição Aditiva</a></li>
+<li class="chapter" data-level="3.2.3" data-path="modelagem.html"><a href="modelagem.html#decomposição-multiplicativa"><i class="fa fa-check"></i><b>3.2.3</b> Decomposição Multiplicativa</a></li>
+<li class="chapter" data-level="3.2.4" data-path="modelagem.html"><a href="modelagem.html#x11"><i class="fa fa-check"></i><b>3.2.4</b> X11</a></li>
+<li class="chapter" data-level="3.2.5" data-path="modelagem.html"><a href="modelagem.html#seats"><i class="fa fa-check"></i><b>3.2.5</b> SEATS</a></li>
+<li class="chapter" data-level="3.2.6" data-path="modelagem.html"><a href="modelagem.html#stl-decomposição-sazonal-e-de-tendência"><i class="fa fa-check"></i><b>3.2.6</b> STL: Decomposição Sazonal e de Tendência</a></li>
+<li class="chapter" data-level="3.2.7" data-path="modelagem.html"><a href="modelagem.html#aprendendo-a-usar-stl"><i class="fa fa-check"></i><b>3.2.7</b> Aprendendo a Usar STL</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="modelagem.html"><a href="modelagem.html#correlogramas"><i class="fa fa-check"></i><b>3.3</b> Correlogramas</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="modelagem.html"><a href="modelagem.html#funcionalidades-2"><i class="fa fa-check"></i><b>3.3.1</b> Funcionalidades</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="modelagem.html"><a href="modelagem.html#diferenciações"><i class="fa fa-check"></i><b>3.4</b> Diferenciações</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="modelagem.html"><a href="modelagem.html#o-que-é-uma-série-temporal-estacionária"><i class="fa fa-check"></i><b>3.4.1</b> O que é uma Série Temporal Estacionária?</a></li>
+<li class="chapter" data-level="3.4.2" data-path="modelagem.html"><a href="modelagem.html#ciclicidade-vs.-estacionariedade"><i class="fa fa-check"></i><b>3.4.2</b> Ciclicidade vs. Estacionariedade</a></li>
+<li class="chapter" data-level="3.4.3" data-path="modelagem.html"><a href="modelagem.html#como-diferenciar-uma-série-temporal"><i class="fa fa-check"></i><b>3.4.3</b> Como Diferenciar uma Série Temporal</a></li>
+<li class="chapter" data-level="3.4.4" data-path="modelagem.html"><a href="modelagem.html#diferenciação-e-transformações"><i class="fa fa-check"></i><b>3.4.4</b> Diferenciação e Transformações</a></li>
+<li class="chapter" data-level="3.4.5" data-path="modelagem.html"><a href="modelagem.html#identificando-séries-não-estacionárias"><i class="fa fa-check"></i><b>3.4.5</b> Identificando Séries Não Estacionárias</a></li>
+<li class="chapter" data-level="3.4.6" data-path="modelagem.html"><a href="modelagem.html#funcionalidades-3"><i class="fa fa-check"></i><b>3.4.6</b> Funcionalidades</a></li>
+<li class="chapter" data-level="3.4.7" data-path="modelagem.html"><a href="modelagem.html#teste-de-ljung-box"><i class="fa fa-check"></i><b>3.4.7</b> Teste de Ljung-Box</a></li>
+<li class="chapter" data-level="3.4.8" data-path="modelagem.html"><a href="modelagem.html#interpretação"><i class="fa fa-check"></i><b>3.4.8</b> Interpretação</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html"><i class="fa fa-check"></i><b>4</b> Modelagem Diagnóstica</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html#modelo-arima"><i class="fa fa-check"></i><b>4.1</b> Modelo ARIMA</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html#escolhendo-os-parâmetros-p-d-e-q"><i class="fa fa-check"></i><b>4.1.1</b> Escolhendo os parâmetros <span class="math inline">\(p\)</span>, <span class="math inline">\(d\)</span>, e <span class="math inline">\(q\)</span></a></li>
+<li class="chapter" data-level="4.1.2" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html#teste-de-ljung-box-1"><i class="fa fa-check"></i><b>4.1.2</b> Teste de Ljung-Box</a></li>
+<li class="chapter" data-level="4.1.3" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html#teste-de-shapiro-wilk"><i class="fa fa-check"></i><b>4.1.3</b> Teste de Shapiro-Wilk</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html#modelo-sarima"><i class="fa fa-check"></i><b>4.2</b> Modelo SARIMA</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html#acfpacf"><i class="fa fa-check"></i><b>4.2.1</b> ACF/PACF</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html#casos-especiais-de-modelos-arima"><i class="fa fa-check"></i><b>4.3</b> Casos Especiais de Modelos ARIMA</a></li>
+<li class="chapter" data-level="4.4" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html#compreendendo-modelos-arima"><i class="fa fa-check"></i><b>4.4</b> Compreendendo Modelos ARIMA</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html#efeito-da-constante-c"><i class="fa fa-check"></i><b>4.4.1</b> Efeito da Constante <span class="math inline">\(c\)</span></a></li>
+<li class="chapter" data-level="4.4.2" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html#valor-de-d"><i class="fa fa-check"></i><b>4.4.2</b> Valor de <span class="math inline">\(d\)</span></a></li>
+<li class="chapter" data-level="4.4.3" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html#valor-de-p"><i class="fa fa-check"></i><b>4.4.3</b> Valor de <span class="math inline">\(p\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html#redes-neurais-auto-regressivas-nnar"><i class="fa fa-check"></i><b>4.5</b> Redes Neurais Auto Regressivas (NNAR)</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html#previsões-e-intervalos-de-predição"><i class="fa fa-check"></i><b>4.5.1</b> Previsões e Intervalos de Predição</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html#considerações-finais"><i class="fa fa-check"></i><b>4.6</b> Considerações Finais</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html#arima"><i class="fa fa-check"></i><b>4.6.1</b> ARIMA</a></li>
+<li class="chapter" data-level="4.6.2" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html#sarima"><i class="fa fa-check"></i><b>4.6.2</b> SARIMA</a></li>
+<li class="chapter" data-level="4.6.3" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html#nnar"><i class="fa fa-check"></i><b>4.6.3</b> NNAR</a></li>
+<li class="chapter" data-level="4.6.4" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html#escolha-do-modelo"><i class="fa fa-check"></i><b>4.6.4</b> Escolha do Modelo</a></li>
+<li class="chapter" data-level="4.6.5" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html#automação-e-compreensão"><i class="fa fa-check"></i><b>4.6.5</b> Automação e Compreensão</a></li>
+<li class="chapter" data-level="4.6.6" data-path="modelagem-diagnóstica.html"><a href="modelagem-diagnóstica.html#previsões-de-longo-prazo"><i class="fa fa-check"></i><b>4.6.6</b> Previsões de Longo Prazo</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="previsões.html"><a href="previsões.html"><i class="fa fa-check"></i><b>5</b> Previsões</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="previsões.html"><a href="previsões.html#previsões-pontuais"><i class="fa fa-check"></i><b>5.1</b> Previsões Pontuais</a></li>
+<li class="chapter" data-level="5.2" data-path="previsões.html"><a href="previsões.html#intervalos-de-previsão"><i class="fa fa-check"></i><b>5.2</b> Intervalos de Previsão</a></li>
+<li class="chapter" data-level="5.3" data-path="previsões.html"><a href="previsões.html#nnar-1"><i class="fa fa-check"></i><b>5.3</b> NNAR</a></li>
+<li class="chapter" data-level="5.4" data-path="previsões.html"><a href="previsões.html#utilizando-parâmetros-de-previsão-no-site"><i class="fa fa-check"></i><b>5.4</b> Utilizando Parâmetros de Previsão no Site</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="previsões.html"><a href="previsões.html#janela-de-previsão"><i class="fa fa-check"></i><b>5.4.1</b> Janela de Previsão</a></li>
+<li class="chapter" data-level="5.4.2" data-path="previsões.html"><a href="previsões.html#intervalos-de-confiança-i.c."><i class="fa fa-check"></i><b>5.4.2</b> Intervalos de Confiança (I.C.)</a></li>
+<li class="chapter" data-level="5.4.3" data-path="previsões.html"><a href="previsões.html#gráficos-interativos-plotly"><i class="fa fa-check"></i><b>5.4.3</b> Gráficos Interativos Plotly</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="previsões.html"><a href="previsões.html#conclusão"><i class="fa fa-check"></i><b>5.5</b> Conclusão</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Análise e Previsão de Séries Temporais com Dados do IPEA</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="modelagem" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Chapter 3</span> Modelagem<a href="modelagem.html#modelagem" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Na seção de modelagem da plataforma <code>ipeadatar-shiny</code>, os usuários podem aplicar transformações e técnicas de decomposição às séries temporais para preparar os dados para a análise e modelagem preditiva. Esta seção é dividida em Transformações, Decomposições, Correlogramas e Diferenciações.</p>
+<div id="transformações" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Transformações<a href="modelagem.html#transformações" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="float">
+<img src="img/02-transf.jpeg" alt="Transformações" />
+<div class="figcaption">Transformações</div>
+</div>
+<div id="transformação-de-box-cox" class="section level3 hasAnchor" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> Transformação de Box-Cox<a href="modelagem.html#transformação-de-box-cox" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A transformação de Box-Cox é uma ferramenta estatística amplamente utilizada para estabilizar a variância de uma série temporal. Quando os dados apresentam variação que aumenta ou diminui em função do nível da série, a transformação pode ser extremamente útil.</p>
+<p>Diferentes valores de <span class="math inline">\(\lambda\)</span> na transformação de Box-Cox induzem a transformações comuns, que são aplicadas para normalizar a distribuição dos dados ou estabilizar a variância ao longo do tempo. Aqui estão alguns valores típicos de <span class="math inline">\(\lambda\)</span> e as transformações correspondentes:</p>
+<ul>
+<li><strong><span class="math inline">\(\lambda = 0\)</span></strong>: Log natural (ln) dos dados.</li>
+<li><strong><span class="math inline">\(\lambda = 0.5\)</span></strong>: Raiz quadrada dos dados.</li>
+<li><strong><span class="math inline">\(\lambda = -0.5\)</span></strong>: Raiz quadrada inversa dos dados.</li>
+<li><strong><span class="math inline">\(\lambda = 1\)</span></strong>: Nenhuma transformação é aplicada, mas a série é deslocada para baixo.</li>
+<li><strong><span class="math inline">\(\lambda = 2\)</span></strong>: Quadrado dos dados.</li>
+<li><strong><span class="math inline">\(\lambda = -1\)</span></strong>: Inversão dos dados.</li>
+</ul>
+<p>Para valores de <span class="math inline">\(\lambda\)</span> diferentes de 0 e 1, a transformação de Box-Cox é definida como:</p>
+<p><span class="math display">\[ w_t = \frac{(y_t^\lambda - 1)}{\lambda} \]</span></p>
+<p>onde <span class="math inline">\(w_t\)</span> são os valores transformados e <span class="math inline">\(y_t\)</span> são os valores originais da série temporal. A escolha do <span class="math inline">\(\lambda\)</span> ideal depende da natureza dos dados e do objetivo da análise.</p>
+<p>Em geral, é recomendado não usar um valor de <span class="math inline">\(\lambda\)</span> fora do intervalo de -2 a 2, pois isso pode levar a transformações que distorcem excessivamente a série temporal.</p>
+<p>A plataforma <code>ipeadatar-shiny</code> permite que os usuários selecionem o valor de <span class="math inline">\(\lambda\)</span> apropriado para sua análise, proporcionando flexibilidade e controle sobre o processo de transformação dos dados.</p>
+</div>
+<div id="médias-móveis" class="section level3 hasAnchor" number="3.1.2">
+<h3><span class="header-section-number">3.1.2</span> Médias Móveis<a href="modelagem.html#médias-móveis" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>O suavizamento por médias móveis é uma forma de estimar o componente tendência-ciclo de uma série temporal, calculando médias dos valores da série dentro de períodos específicos. Isso reduz alguma aleatoriedade nos dados, deixando um componente de tendência-ciclo mais suave.</p>
+</div>
+</div>
+<div id="decomposições" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Decomposições<a href="modelagem.html#decomposições" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="float">
+<img src="img/03-decomp.jpeg" alt="Decomposições" />
+<div class="figcaption">Decomposições</div>
+</div>
+<p>A decomposição de séries temporais é uma técnica estatística que desagrega uma série temporal em componentes como tendência, sazonalidade e ruído. Existem dois tipos principais de decomposições: aditiva e multiplicativa.</p>
+<p>Baseado no <a href="https://otexts.com/fpp3/decomposition.html">Capítulo 3 do fpp3</a>, a aba de decomposições permite aos usuários decompor uma série temporal em seus componentes essenciais: tendência, sazonalidade e ruído. Utilizando métodos como STL, a plataforma fornece uma forma interativa de visualizar e analisar esses componentes separadamente, oferecendo insights sobre o comportamento da série ao longo do tempo.</p>
+<div id="funcionalidades-1" class="section level3 hasAnchor" number="3.2.1">
+<h3><span class="header-section-number">3.2.1</span> Funcionalidades<a href="modelagem.html#funcionalidades-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><strong>Seleção do tipo de decomposição</strong>: Escolha entre várias técnicas de decomposição, como STL, aditiva e multiplicativa.</li>
+<li><strong>Ajuste das janelas</strong>: Configure as janelas de tendência e sazonalidade para refinar a decomposição.</li>
+<li><strong>Visualização interativa</strong>: Examine os componentes decompostos com gráficos interativos que facilitam a interpretação dos dados.</li>
+</ul>
+</div>
+<div id="decomposição-aditiva" class="section level3 hasAnchor" number="3.2.2">
+<h3><span class="header-section-number">3.2.2</span> Decomposição Aditiva<a href="modelagem.html#decomposição-aditiva" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Na decomposição aditiva, assume-se que os componentes se somam da seguinte forma:</p>
+<p><span class="math display">\[ y_t = S_t + T_t + R_t \]</span></p>
+<p>onde <span class="math inline">\(y_t\)</span> é a observação no tempo <span class="math inline">\(t\)</span>, <span class="math inline">\(S_t\)</span> é o componente sazonal, <span class="math inline">\(T_t\)</span> é o componente de tendência-ciclo e <span class="math inline">\(R_t\)</span> é o componente irregular ou de ruído.</p>
+<p>Essa abordagem é mais apropriada quando as flutuações sazonais e a variabilidade em torno da tendência-ciclo são aproximadamente constantes ao longo do tempo.</p>
+</div>
+<div id="decomposição-multiplicativa" class="section level3 hasAnchor" number="3.2.3">
+<h3><span class="header-section-number">3.2.3</span> Decomposição Multiplicativa<a href="modelagem.html#decomposição-multiplicativa" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A decomposição multiplicativa considera que os componentes são multiplicativos:</p>
+<p><span class="math display">\[ y_t = S_t \times T_t \times R_t \]</span></p>
+<p>Este modelo é adequado quando a amplitude das flutuações sazonais ou a variabilidade em torno da tendência-ciclo parecem ser proporcionais ao nível da série temporal. Uma decomposição multiplicativa pode ser obtida transformando os dados com logaritmos e, em seguida, aplicando uma decomposição aditiva.</p>
+</div>
+<div id="x11" class="section level3 hasAnchor" number="3.2.4">
+<h3><span class="header-section-number">3.2.4</span> X11<a href="modelagem.html#x11" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>O método X11 é utilizado por agências estatísticas para ajuste sazonal e é baseado em decomposição clássica, mas com várias melhorias, como estimativas de tendência-ciclo para todas as observações e um componente sazonal que pode variar ao longo do tempo.</p>
+</div>
+<div id="seats" class="section level3 hasAnchor" number="3.2.5">
+<h3><span class="header-section-number">3.2.5</span> SEATS<a href="modelagem.html#seats" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>O SEATS é um procedimento baseado em modelos ARIMA para extração sazonal e é amplamente utilizado por agências governamentais. Ele lida especificamente com dados trimestrais e mensais e não é adequado para outros tipos de sazonalidade.</p>
+</div>
+<div id="stl-decomposição-sazonal-e-de-tendência" class="section level3 hasAnchor" number="3.2.6">
+<h3><span class="header-section-number">3.2.6</span> STL: Decomposição Sazonal e de Tendência<a href="modelagem.html#stl-decomposição-sazonal-e-de-tendência" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>STL é um método versátil e robusto para decompor séries temporais, que se destaca pela flexibilidade em lidar com diferentes tipos de sazonalidade e pela capacidade de controlar o quão rápido os componentes de tendência-ciclo e sazonal podem mudar. STL é particularmente útil quando a sazonalidade e a tendência variam ao longo do tempo e quando a série contém outliers.</p>
+<div id="vantagens-do-stl" class="section level4 hasAnchor" number="3.2.6.1">
+<h4><span class="header-section-number">3.2.6.1</span> Vantagens do STL<a href="modelagem.html#vantagens-do-stl" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li><strong>Manuseio de Sazonalidade Variável</strong>: STL pode lidar com qualquer tipo de sazonalidade, permitindo que o componente sazonal mude ao longo do tempo.</li>
+<li><strong>Controle do Usuário</strong>: O usuário pode controlar a suavidade da tendência-ciclo e a taxa de mudança da sazonalidade.</li>
+<li><strong>Robustez a Outliers</strong>: A decomposição pode ser especificada para ser robusta, de modo que observações atípicas não afetem os componentes principais.</li>
+</ul>
+</div>
+<div id="desvantagens-do-stl" class="section level4 hasAnchor" number="3.2.6.2">
+<h4><span class="header-section-number">3.2.6.2</span> Desvantagens do STL<a href="modelagem.html#desvantagens-do-stl" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li><strong>Variação de Calendário</strong>: STL não lida automaticamente com variações de dias de negociação ou variações de calendário.</li>
+<li><strong>Decomposições Apenas Aditivas</strong>: Por padrão, STL só realiza decomposições aditivas, mas decomposições multiplicativas podem ser obtidas transformando os dados.</li>
+</ul>
+</div>
+<div id="parâmetros-principais" class="section level4 hasAnchor" number="3.2.6.3">
+<h4><span class="header-section-number">3.2.6.3</span> Parâmetros Principais<a href="modelagem.html#parâmetros-principais" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li><strong>Janela de Tendência-Ciclo</strong>: Número de observações consecutivas utilizadas para estimar o componente de tendência-ciclo.</li>
+<li><strong>Janela Sazonal</strong>: Número de defasagens consecutivas utilizados para estimar cada valor do componente sazonal. Uma janela sazonal infinita força o componente sazonal a ser periódico.</li>
+</ul>
+<p>Experimentar com diferentes configurações de janelas permite que o usuário adapte a decomposição às características específicas da série temporal.</p>
+</div>
+</div>
+<div id="aprendendo-a-usar-stl" class="section level3 hasAnchor" number="3.2.7">
+<h3><span class="header-section-number">3.2.7</span> Aprendendo a Usar STL<a href="modelagem.html#aprendendo-a-usar-stl" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A melhor maneira de aprender a usar STL é através de exemplos e experimentação com as configurações. Observar decomposições aplicadas a séries reais e ajustar os parâmetros conforme necessário pode fornecer descobertas valiosas e melhorar a capacidade de previsão dos modelos.</p>
+<p>Lembrando que a escolha entre decomposição aditiva e multiplicativa — ou um método híbrido usando transformação Box-Cox — dependerá da natureza e das características específicas da série temporal analisada.</p>
+</div>
+</div>
+<div id="correlogramas" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> Correlogramas<a href="modelagem.html#correlogramas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="float">
+<img src="img/04-acf.jpeg" alt="Correlogramas" />
+<div class="figcaption">Correlogramas</div>
+</div>
+<p>Os correlogramas, representados pelos gráficos ACF e PACF, são ferramentas cruciais na identificação de valores apropriados para os parâmetros p e q em modelos ARIMA. Enquanto o ACF mede a relação entre <span class="math inline">\(y_t\)</span> e <span class="math inline">\(y_{t-k}\)</span> para diferentes valores de k, o PACF mede a relação entre <span class="math inline">\(y_t\)</span> e <span class="math inline">\(y_{t-k}\)</span> após remover os efeitos de lags intermediários.</p>
+<p>Conforme descrito na <a href="https://otexts.com/fpp3/non-seasonal-arima.html#acf-and-pacf-plots">seção de ARIMA não sazonal do fpp3</a>, nem sempre é possível determinar, apenas por um gráfico temporal, quais valores de p e q são apropriados para os dados. No entanto, muitas vezes é possível usar o gráfico ACF e o gráfico PACF relacionado para determinar valores adequados para p e q.</p>
+<div id="funcionalidades-2" class="section level3 hasAnchor" number="3.3.1">
+<h3><span class="header-section-number">3.3.1</span> Funcionalidades<a href="modelagem.html#funcionalidades-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><strong>ACF e PACF Plots</strong>: Utilize os gráficos de autocorrelação (ACF) e autocorrelação parcial (PACF) para identificar potenciais valores de p e q para modelos ARIMA.</li>
+<li><strong>Análise de Autocorrelação</strong>: Entenda a correlação entre observações em diferentes lags, ajudando a identificar a ordem de processos autorregressivos.</li>
+</ul>
+</div>
+</div>
+<div id="diferenciações" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> Diferenciações<a href="modelagem.html#diferenciações" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="float">
+<img src="img/05-diff.jpeg" alt="Diferenciações" />
+<div class="figcaption">Diferenciações</div>
+</div>
+<p>A diferenciação é uma técnica fundamental para tornar uma série temporal estacionária. Uma série temporal é considerada estacionária quando suas propriedades estatísticas, como média e variância, não dependem do tempo. Séries temporais com tendências ou sazonalidades não são estacionárias, pois esses componentes afetam os valores da série em diferentes momentos.</p>
+<div id="o-que-é-uma-série-temporal-estacionária" class="section level3 hasAnchor" number="3.4.1">
+<h3><span class="header-section-number">3.4.1</span> O que é uma Série Temporal Estacionária?<a href="modelagem.html#o-que-é-uma-série-temporal-estacionária" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Uma série temporal estacionária apresenta propriedades estatísticas consistentes ao longo do tempo. Isso significa que a série não terá padrões previsíveis de longo prazo, e os gráficos temporais mostrarão a série como aproximadamente horizontal, com variância constante. O ruído branco é um exemplo de série temporal estacionária.</p>
+</div>
+<div id="ciclicidade-vs.-estacionariedade" class="section level3 hasAnchor" number="3.4.2">
+<h3><span class="header-section-number">3.4.2</span> Ciclicidade vs. Estacionariedade<a href="modelagem.html#ciclicidade-vs.-estacionariedade" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Comportamentos cíclicos em uma série temporal podem ser confundidos com não estacionariedade, mas se os ciclos não têm comprimento fixo e não são previsíveis, a série pode ser estacionária. A diferenciação entre ciclicidade e estacionariedade é importante na análise e modelagem de séries temporais.</p>
+</div>
+<div id="como-diferenciar-uma-série-temporal" class="section level3 hasAnchor" number="3.4.3">
+<h3><span class="header-section-number">3.4.3</span> Como Diferenciar uma Série Temporal<a href="modelagem.html#como-diferenciar-uma-série-temporal" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Para diferenciar uma série temporal, calculamos as diferenças entre observações consecutivas. Este processo é conhecido como <em>diferenciação</em> e é eficaz para estabilizar a média de uma série temporal, removendo alterações em seu nível e, consequentemente, eliminando ou reduzindo tendências e sazonalidades.</p>
+</div>
+<div id="diferenciação-e-transformações" class="section level3 hasAnchor" number="3.4.4">
+<h3><span class="header-section-number">3.4.4</span> Diferenciação e Transformações<a href="modelagem.html#diferenciação-e-transformações" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Transformações, como a aplicação de logaritmos, podem ajudar a estabilizar a variância de uma série temporal. Quando combinadas com a diferenciação, estas transformações podem tornar a série temporal tanto estacionária em variância quanto em média.</p>
+</div>
+<div id="identificando-séries-não-estacionárias" class="section level3 hasAnchor" number="3.4.5">
+<h3><span class="header-section-number">3.4.5</span> Identificando Séries Não Estacionárias<a href="modelagem.html#identificando-séries-não-estacionárias" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Além do gráfico temporal dos dados, o gráfico da função de autocorrelação (ACF) também é útil para identificar séries temporais não estacionárias. Para uma série estacionária, a ACF diminuirá rapidamente para zero, enquanto a ACF de dados não estacionários decresce lentamente. Além disso, em dados não estacionários, o valor de <span class="math inline">\(r_1\)</span> é frequentemente grande e positivo.</p>
+<p>Usando a plataforma <code>ipeadatar-shiny</code>, os usuários podem aplicar diferenciação às suas séries temporais e visualizar tanto o impacto direto nos dados quanto nos gráficos ACF correspondentes.</p>
+<p>Esta aba permite aos usuários aplicarem diferenciações às séries temporais para alcançar estacionariedade, um pré-requisito comum para muitos métodos de modelagem de séries temporais.</p>
+</div>
+<div id="funcionalidades-3" class="section level3 hasAnchor" number="3.4.6">
+<h3><span class="header-section-number">3.4.6</span> Funcionalidades<a href="modelagem.html#funcionalidades-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><strong>Aplicação de diferenciações</strong>: Aplique diferenciação simples ou sazonal diretamente na plataforma para analisar o impacto na estacionariedade da série.</li>
+<li><strong>Visualização dos resultados</strong>: Veja o efeito da diferenciação nas propriedades estatísticas da série e na sua aparência visual.</li>
+</ul>
+</div>
+<div id="teste-de-ljung-box" class="section level3 hasAnchor" number="3.4.7">
+<h3><span class="header-section-number">3.4.7</span> Teste de Ljung-Box<a href="modelagem.html#teste-de-ljung-box" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Além de examinar o gráfico ACF, podemos realizar um teste mais formal para autocorrelação considerando um conjunto de valores de <span class="math inline">\(r_k\)</span> como um grupo, em vez de tratá-los separadamente, onde <span class="math inline">\(r_k\)</span> é a autocorrelação para o lag <span class="math inline">\(k\)</span>. Observar o gráfico ACF à procura de picos fora dos limites implica em múltiplos testes de hipótese, cada um com uma pequena probabilidade de um falso positivo. Com vários testes, é provável que pelo menos um resulte em um falso positivo, levando à conclusão incorreta de que os resíduos têm autocorrelação remanescente.</p>
+<p>Para superar esse problema, testamos se as primeiras <span class="math inline">\(\ell\)</span> autocorrelações são significativamente diferentes do que seria esperado de um processo de ruído branco. Um teste para um grupo de autocorrelações é chamado de teste de portmanteau.</p>
+<p>O teste de Ljung-Box é baseado na estatística <span class="math inline">\(Q^*\)</span>, definida como:</p>
+<p><span class="math display">\[ Q^* = T(T + 2) \sum_{k=1}^{\ell} \frac{r_k^2}{T - k} \]</span></p>
+<p>onde <span class="math inline">\(T\)</span> é o número de observações e <span class="math inline">\(\ell\)</span> é o lag máximo considerado. Se cada <span class="math inline">\(r_k\)</span> estiver próximo de zero, <span class="math inline">\(Q^*\)</span> será pequeno. Se alguns valores de <span class="math inline">\(r_k\)</span> forem grandes (positivos ou negativos), <span class="math inline">\(Q^*\)</span> será grande. Valores grandes de <span class="math inline">\(Q^*\)</span> sugerem que as autocorrelações não vêm de uma série de ruído branco.</p>
+</div>
+<div id="interpretação" class="section level3 hasAnchor" number="3.4.8">
+<h3><span class="header-section-number">3.4.8</span> Interpretação<a href="modelagem.html#interpretação" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Se as autocorrelações viessem de uma série de ruído branco, então <span class="math inline">\(Q^*\)</span> teria uma distribuição <span class="math inline">\(\chi^2\)</span> com <span class="math inline">\(\ell\)</span> graus de liberdade. Assim, um valor de <span class="math inline">\(Q^*\)</span> maior que o valor crítico dessa distribuição indica a presença de autocorrelação não explicada pelos modelos.</p>
+<p>Cada uma dessas abas equipa o usuário com ferramentas para a realização de uma análise detalhada e a preparação de séries temporais para a modelagem preditiva, seguindo as práticas recomendadas no livro fpp3.</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="explorador.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="modelagem-diagnóstica.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/03-modelagem.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
